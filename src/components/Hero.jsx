@@ -4,10 +4,7 @@ import { Mail, Facebook, Linkedin, Github, ChevronRight, ArrowUp, Instagram, Ext
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
 
-// Assets
-import Portrait1 from '../assets/Portrait-1.JPG';
-import EventImg from '../assets/Event.png';
-import Portrait2 from '../assets/Portrait-2.JPG';
+// Assets (removed imports, using public paths)
 
 const SocialLink = ({ href, icon }) => (
   <a 
@@ -129,7 +126,7 @@ export default function Hero() {
                className="relative group md:w-3/4 mx-auto"
             >
                 <div className="absolute inset-0 bg-blue-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                <img src={Portrait1} alt="Portrait 1" className="relative rounded-2xl shadow-2xl w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500 border border-white/10" />
+                <img src="/assets/Portrait-1.JPG" alt="Portrait 1" className="relative rounded-2xl shadow-2xl w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500 border border-white/10" />
             </motion.div>
           </div>
 
@@ -143,7 +140,7 @@ export default function Hero() {
                 className="order-2 md:order-1 relative group"
              >
                 <div className="absolute inset-0 bg-purple-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                <img src={EventImg} alt="Event Activity" className="relative rounded-2xl shadow-2xl w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500 border border-white/10" />
+                <img src="/assets/Event.png" alt="Event Activity" className="relative rounded-2xl shadow-2xl w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500 border border-white/10" />
             </motion.div>
             <motion.div 
                initial="hidden"
@@ -207,7 +204,7 @@ export default function Hero() {
                className="relative group"
             >
                 <div className="absolute inset-0 bg-cyan-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                <img src={Portrait2} alt="Portrait 2" className="relative rounded-2xl shadow-2xl w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500 border border-white/10" />
+                <img src="/assets/Portrait-2.JPG" alt="Portrait 2" className="relative rounded-2xl shadow-2xl w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500 border border-white/10" />
             </motion.div>
           </div>
 

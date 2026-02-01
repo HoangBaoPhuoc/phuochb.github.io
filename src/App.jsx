@@ -35,7 +35,6 @@ function AnimatedRoutes() {
 }
 
 import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopButton from './components/ScrollToTopButton';
 
 function App() {
   return (
@@ -47,7 +46,7 @@ function App() {
         {/* Fixed Background - Global */}
         <div className="fixed inset-0 z-[-1]">
           <img 
-            src="/src/assets/Background.png" 
+            src="/assets/Background.png" 
             alt="Background" 
             className="w-full h-full object-cover"
           />
