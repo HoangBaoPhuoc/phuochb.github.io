@@ -19,6 +19,7 @@ function AnimatedRoutes() {
                 <Hero />
             </PageTransition>
         } />
+        
         <Route path="/portfolio" element={
             <PageTransition>
                 <MainContent />
@@ -35,6 +36,7 @@ function AnimatedRoutes() {
 }
 
 import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 function App() {
   return (
@@ -44,13 +46,12 @@ function App() {
         <CursorSpotlight />
         
         {/* Fixed Background - Global */}
-        <div className="fixed inset-0 z-[-1]">
+        <div className="fixed inset-0 z-[-1] bg-black">
           <img 
-            src="/assets/Background.png" 
+            src="/images/Background.png" 
             alt="Background" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30" />
         </div>
 
         <Header />

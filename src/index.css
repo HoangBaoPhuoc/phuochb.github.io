@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    @apply text-slate-100 bg-black;
+    @apply text-slate-100;
 }
 
 .glass-panel {
