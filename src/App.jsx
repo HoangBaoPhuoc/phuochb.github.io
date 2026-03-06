@@ -1,12 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import MainContent from './components/MainContent';
-import Login from './components/Login';
-import CursorSpotlight from './components/CursorSpotlight';
-import PageTransition from './components/PageTransition';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { AuthProvider } from "./auth/AuthContext";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import MainContent from "./components/MainContent";
+import Login from "./components/Login";
+import RestrictedPage from "./components/RestrictedPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import CursorSpotlight from "./components/CursorSpotlight";
+import PageTransition from "./components/PageTransition";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -14,51 +22,72 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={
+        <Route
+          path="/"
+          element={
             <PageTransition>
-                <Hero />
+              <Hero />
             </PageTransition>
-        } />
-        
-        <Route path="/portfolio" element={
+          }
+        />
+
+        <Route
+          path="/portfolio"
+          element={
             <PageTransition>
-                <MainContent />
+              <MainContent />
             </PageTransition>
-        } />
-        <Route path="/secret" element={
+          }
+        />
+        <Route
+          path="/secret"
+          element={
             <PageTransition>
-                <Login />
+              <Login />
             </PageTransition>
-        } />
+          }
+        />
+        <Route
+          path="/restricted"
+          element={
+            <PageTransition>
+              <ProtectedRoute>
+                <RestrictedPage />
+              </ProtectedRoute>
+            </PageTransition>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
 }
 
-import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopButton from './components/ScrollToTopButton';
+import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <div className="min-h-screen text-slate-100 font-raleway">
-        <CursorSpotlight />
-        
-        {/* Fixed Background - Global */}
-        <div className="fixed inset-0 z-[-1] bg-black">
-          <img 
-            src="/images/Background.png" 
-            alt="Background" 
-            className="w-full h-full object-cover"
-          />
-        </div>
+      <AuthProvider>
+        <ScrollToTop />
+        <div className="min-h-screen text-slate-100 font-raleway">
+          <CursorSpotlight />
 
-        <Header />
-        
-        <AnimatedRoutes />
-        <ScrollToTopButton />
-      </div>
+          {/* Fixed Background - Global */}
+          <div className="fixed inset-0 z-[-1] bg-black">
+            <img
+              src="/images/Background.png"
+              alt="Background"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <Header />
+
+          <AnimatedRoutes />
+          <ScrollToTopButton />
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
