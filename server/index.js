@@ -9,10 +9,15 @@ import User from "./models/User.js";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const extraOrigins = (process.env.FRONTEND_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
-  process.env.FRONTEND_ORIGIN,
+  ...extraOrigins,
 ].filter(Boolean);
 
 app.use(
