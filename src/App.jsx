@@ -64,6 +64,7 @@ function AnimatedRoutes() {
 
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import { useState, useEffect } from "react";
 
 function AppContent() {
   const location = useLocation();
@@ -71,6 +72,31 @@ function AppContent() {
   const backgroundImage = isRestrictedPage
     ? "/images/Background-2.jpg"
     : "/images/Background.png";
+
+  const [loadedImages, setLoadedImages] = useState(new Set());
+
+  // Preload restricted background on mount
+  useEffect(() => {
+    const restrictedBg = new Image();
+    restrictedBg.src = "/images/Background-2.jpg";
+    restrictedBg.onload = () => {
+      setLoadedImages((prev) => new Set(prev).add("/images/Background-2.jpg"));
+    };
+  }, []);
+
+  // Track current background loading
+  useEffect(() => {
+    const img = new Image();
+    img.src = backgroundImage;
+    img.onload = () => {
+      setLoadedImages((prev) => new Set(prev).add(backgroundImage));
+    };
+    img.onerror = () => {
+      setLoadedImages((prev) => new Set(prev).add(backgroundImage));
+    };
+  }, [backgroundImage]);
+
+  const bgLoaded = loadedImages.has(backgroundImage);
 
   return (
     <>
@@ -83,7 +109,9 @@ function AppContent() {
           <img
             src={backgroundImage}
             alt="Background"
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-opacity duration-500 ${
+              bgLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
         </div>
 
