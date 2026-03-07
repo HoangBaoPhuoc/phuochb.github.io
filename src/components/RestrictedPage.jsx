@@ -89,6 +89,16 @@ export default function RestrictedPage() {
     cards.forEach((card) => map.set(card.id, card));
     return map;
   }, [cards]);
+  // Preload all game images on component mount
+  useEffect(() => {
+    // Preload game card images
+    [...GAME_IMAGES, "/images/flowers.png", "/images/letter.png"].forEach(
+      (imageSrc) => {
+        const img = new Image();
+        img.src = imageSrc;
+      },
+    );
+  }, []);
 
   // Fetch content on component mount
   useEffect(() => {
