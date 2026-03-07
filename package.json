@@ -9,7 +9,11 @@
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "user:list": "node server/listUsers.js",
+    "user:create": "node server/createAccount.js",
+    "user:password": "node server/changePassword.js",
+    "user:delete": "node server/deleteUser.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

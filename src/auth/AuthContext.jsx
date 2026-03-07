@@ -19,29 +19,55 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAuth = async () => {
+    console.log("🔐 checkAuth starting...");
     setIsLoading(true);
     try {
       const token = getStoredToken();
       if (token) {
-        const currentUser = await getCurrentUser(token);
-        if (currentUser) {
-          setIsAuthenticated(true);
-          setUser({ username: currentUser.username });
-        } else {
-          removeToken();
-          setIsAuthenticated(false);
-          setUser(null);
+        console.log("🔐 Token found, verifying with server...");
+        try {
+          const currentUser = await getCurrentUser(token);
+          if (currentUser) {
+            console.log("✅ Auth valid, user:", currentUser.username);
+            setIsAuthenticated(true);
+            setUser({ username: currentUser.username });
+          } else {
+            console.log("❌ getCurrentUser returned null - removing token");
+            removeToken();
+            setIsAuthenticated(false);
+            setUser(null);
+          }
+        } catch (error) {
+          console.error("❌ getCurrentUser failed:", error);
+          // Only remove token if it's actually invalid (401), not for network errors
+          if (
+            error.message.includes("Unauthorized") ||
+            error.message.includes("Invalid token")
+          ) {
+            console.log("🗑️ Removing invalid token");
+            removeToken();
+            setIsAuthenticated(false);
+            setUser(null);
+          } else {
+            // Network error or server error - keep token, just not authenticated for now
+            console.log(
+              "⚠️ Keeping token, but marking as not authenticated due to error",
+            );
+            setIsAuthenticated(false);
+          }
         }
       } else {
+        console.log("❌ No token in localStorage");
         setIsAuthenticated(false);
         setUser(null);
       }
     } catch (error) {
-      console.error("Auth check error:", error);
+      console.error("❌ Auth check error:", error);
       setIsAuthenticated(false);
       setUser(null);
     } finally {
       setIsLoading(false);
+      console.log("🔐 checkAuth finished");
     }
   };
 

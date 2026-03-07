@@ -65,28 +65,42 @@ function AnimatedRoutes() {
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 
+function AppContent() {
+  const location = useLocation();
+  const isRestrictedPage = location.pathname === "/restricted";
+  const backgroundImage = isRestrictedPage
+    ? "/images/Background-2.jpg"
+    : "/images/Background.png";
+
+  return (
+    <>
+      <ScrollToTop />
+      <div className="min-h-screen text-slate-100 font-raleway">
+        {!isRestrictedPage && <CursorSpotlight />}
+
+        {/* Fixed Background - Global */}
+        <div className="fixed inset-0 z-[-1] bg-black">
+          <img
+            src={backgroundImage}
+            alt="Background"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {!isRestrictedPage && <Header />}
+
+        <AnimatedRoutes />
+        <ScrollToTopButton />
+      </div>
+    </>
+  );
+}
+
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <ScrollToTop />
-        <div className="min-h-screen text-slate-100 font-raleway">
-          <CursorSpotlight />
-
-          {/* Fixed Background - Global */}
-          <div className="fixed inset-0 z-[-1] bg-black">
-            <img
-              src="/images/Background.png"
-              alt="Background"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <Header />
-
-          <AnimatedRoutes />
-          <ScrollToTopButton />
-        </div>
+        <AppContent />
       </AuthProvider>
     </Router>
   );

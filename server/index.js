@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import authRoutes from "./routes/auth.js";
+import letterRoutes from "./routes/letter.js";
+import contentRoutes from "./routes/content.js";
 import User from "./models/User.js";
 
 const app = express();
@@ -33,6 +35,8 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/letter", letterRoutes);
+app.use("/api/content", contentRoutes);
 
 const ensureAdminAccount = async () => {
   const adminUsername = process.env.ADMIN_USERNAME;
