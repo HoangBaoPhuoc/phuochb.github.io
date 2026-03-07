@@ -20,6 +20,8 @@ const resolveApiBaseUrl = () => {
 
 const API_BASE_URL = resolveApiBaseUrl();
 
+export { API_BASE_URL };
+
 const buildAuthHeaders = (token) => ({
   "Content-Type": "application/json",
   Authorization: `Bearer ${token}`,

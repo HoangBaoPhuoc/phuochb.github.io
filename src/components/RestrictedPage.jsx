@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
-import { getStoredToken } from "../auth/authUtils";
+import { getStoredToken, API_BASE_URL } from "../auth/authUtils";
 
 const GAME_IMAGES = [
   "/images/game-1.jpg",
@@ -94,7 +94,7 @@ export default function RestrictedPage() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/content");
+        const response = await fetch(`${API_BASE_URL}/api/content`);
         if (response.ok) {
           const data = await response.json();
           setContentData(data);
@@ -160,7 +160,7 @@ export default function RestrictedPage() {
     try {
       console.log("🔑 Token:", token.substring(0, 20) + "...");
 
-      const response = await fetch("http://localhost:4000/api/letter", {
+      const response = await fetch(`${API_BASE_URL}/api/letter`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
