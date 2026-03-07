@@ -19,6 +19,8 @@ const extraOrigins = (process.env.FRONTEND_ORIGIN || "")
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
+  "https://phuochb.id.vn",
+  "https://phuochb.github.io",
   ...extraOrigins,
 ].filter(Boolean);
 
